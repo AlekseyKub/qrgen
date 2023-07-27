@@ -175,6 +175,26 @@ func SizeСheck(data []byte, ver, cor int) bool {
 	return (x < MaxDataBit[ver][cor])
 }
 
+// Определить версию
+func CalculatVersion(lens int, cor int) int {
+	x := 0
+	for i := 0; i <= 39; i++ {
+		x = i
+		if i < 9 {
+			if MaxDataBit[i][cor]/8 > lens+2 {
+				//x = i
+				break
+			}
+		} else {
+			if MaxDataBit[i][cor]/8 > lens+3 {
+				//x = i
+				break
+			}
+		}
+	}
+	return (x + 1)
+}
+
 // Распечатать по битам
 func printBit(x int) {
 	for i := 7; i >= 0; i-- {

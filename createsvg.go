@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func CreateSvg(arr [][]int) {
+func CreateSvg(arr [][]int, name string) {
 
 	sizePoint := 10
 	border := 40
@@ -17,7 +17,7 @@ func CreateSvg(arr [][]int) {
 	startSvg := fmt.Sprintf(`<svg version="1.1" baseProfile="full" width="%d" height="%d" xmlns="http://www.w3.org/2000/svg">`, sizeBakground, sizeBakground)
 	endSvg := `</svg>`
 
-	file, err := os.Create("qrsvg.svg")
+	file, err := os.Create(name)
 
 	if err != nil {
 		fmt.Println("Unable to create file:", err)
