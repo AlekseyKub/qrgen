@@ -1,6 +1,7 @@
 // mask
 package qrgen
 
+// маскирование QR кода
 func ApplyMask(arr [][]int, numMask int) {
 	if numMask == 0 {
 		for x := 0; x < (len(arr)); x++ {
@@ -136,5 +137,4 @@ func ApplyMask(arr [][]int, numMask int) {
 			}
 		}
 	}
-
 }

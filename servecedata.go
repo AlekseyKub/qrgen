@@ -1,10 +1,6 @@
 // servicedata
 package qrgen
 
-import (
-	"fmt"
-)
-
 // Добавление служебной информации о маске и уровне коррекции
 func CreateMaskAndCorrectionLevel(arr [][]int, ver, cor, number int) {
 	data := maskAndCorrectionLevel[cor][number]
@@ -81,9 +77,9 @@ func createBlackPoin(arr [][]int) {
 	arr[len(arr)-8][8] = 3
 }
 
+// Добавление версии кода (для версии > 7)
 func createCodeVersion(arr [][]int, ver int) {
 	data := versionCodeData[ver]
-	fmt.Println(data)
 	i := 17
 	for x := len(arr) - 11; x < len(arr)-8; x++ {
 		for y := 0; y < 6; y++ {
@@ -101,6 +97,7 @@ func createCodeVersion(arr [][]int, ver int) {
 	}
 }
 
+// определить какой бит на позиции
 func HasBit(n int, pos int) bool {
 	val := n & (1 << pos)
 	return (val > 0)

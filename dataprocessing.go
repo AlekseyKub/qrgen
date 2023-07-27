@@ -70,22 +70,20 @@ func AddingDataOut(dataout []byte, data []byte, ver int, cor int) []byte {
 	byteOnBlockData := (MaxDataBit[ver][cor] / numberBlock) / 8 //кол. байт в блоке данных
 	extendedBlocks := (MaxDataBit[ver][cor] / 8) % numberBlock  //количество дополненных блоков данных
 
-	fmt.Print("количество блоков данных = ")
-	fmt.Println(numberBlock)
-	fmt.Print("количество байт коррекции = ")
-	fmt.Println(byteOnBlock)
-	fmt.Print("кол. байт в блоке данных = ")
-	fmt.Println(byteOnBlockData)
-	fmt.Print("дополненные блоки = ")
-	fmt.Println(extendedBlocks)
+	// fmt.Print("количество блоков данных = ")
+	// fmt.Println(numberBlock)
+	// fmt.Print("количество байт коррекции = ")
+	// fmt.Println(byteOnBlock)
+	// fmt.Print("кол. байт в блоке данных = ")
+	// fmt.Println(byteOnBlockData)
+	// fmt.Print("дополненные блоки = ")
+	// fmt.Println(extendedBlocks)
 
 	blockCorrSlise := make([]byte, 0, numberBlock*byteOnBlock)
 	numExtendedBlock := 0 //номер дополненного блока
 
 	a := 0
 	b := 0
-	fmt.Println("data")
-	fmt.Println(data)
 	for i := 0; i < numberBlock; i++ { // 4 блока 0-3   2 доп.блока 2-3
 		if (extendedBlocks > 0) && (i >= numberBlock-extendedBlocks) {
 			a = (i * byteOnBlockData) + numExtendedBlock
@@ -96,26 +94,19 @@ func AddingDataOut(dataout []byte, data []byte, ver int, cor int) []byte {
 			b = ((i + 1) * byteOnBlockData)
 		}
 
-		// fmt.Println(a)
-		// fmt.Println(b)
 		data1 := data[a:b]
-		fmt.Println("data1")
-		fmt.Println(data1)
 		blockCorrSlise = append(blockCorrSlise, CreateBlock(data1, byteOnBlock)...)
 	}
 
 	//добавление данных по блокам к выходному масссибу
 	numExtendedBlock = 0
 	for i := 0; i < byteOnBlockData; i++ {
-		x := i //номер байта из блока
-		//fmt.Println("----")
+		x := i                             //номер байта из блока
 		for y := 0; y < numberBlock; y++ { //номер блока
 			if y > (numberBlock - extendedBlocks) {
-				//fmt.Println("защел")
 				x += 1
 				numExtendedBlock++
 			}
-			//fmt.Println(x)
 			dataout = append(dataout, data[x])
 			x += byteOnBlockData
 		}
@@ -124,34 +115,10 @@ func AddingDataOut(dataout []byte, data []byte, ver int, cor int) []byte {
 	if extendedBlocks > 0 {
 		numExtendedBlock = 0
 		y := ((numberBlock - extendedBlocks) + 1) * (byteOnBlockData)
-		// fmt.Println("Y =")
-		// fmt.Println(y)
-
 		for i := 0; i < extendedBlocks; i++ {
-			// fmt.Println("Y =")
-			// fmt.Println(y)
-
 			dataout = append(dataout, data[y])
 			y += byteOnBlockData + 1
 		}
-		// fmt.Println(extendedBlocks)
-		// for i := 0; i < extendedBlocks; i++ {
-		// 	x := ((y + 1) * byteOnBlockData) + (numExtendedBlock)
-		// 	numExtendedBlock++
-		// 	y++
-		// 	fmt.Println("x =")
-		// 	fmt.Println(x)
-		// 	fmt.Println(data)
-		// 	fmt.Println(len(data))
-		// 	dataout = append(dataout, data[x])
-		// }
-
-		// fmt.Println(len(dataout))
-		// fmt.Println(cap(dataout))
-		fmt.Println("data")
-		fmt.Println(data)
-		//fmt.Println("dataout")
-		//fmt.Println(dataout)
 	}
 
 	//добавление блоков корррекции по блокам к выходному масссибу
@@ -162,17 +129,13 @@ func AddingDataOut(dataout []byte, data []byte, ver int, cor int) []byte {
 			x += byteOnBlock
 		}
 	}
-
-	fmt.Println("dataout")
-	fmt.Println(len(dataout))
-	fmt.Println(dataout)
 	return dataout
 }
 
 // Расчет блока коррекции
-// Принимает блок для которого необходимо почитать уровень коррекции
+// Принимает блок для которого необходимо посчитать уровень коррекции
 //
-//	и количество байт у блоке уровня коррекции (возвращает блок коррекции)
+//	и количество байт в блоке уровня коррекции (возвращает блок коррекции)
 func CreateBlock(block []byte, byteOnBlock int) []byte {
 
 	blockCorr := make([]byte, 0, len(block))    //создаем срез по количеству байт
@@ -203,8 +166,6 @@ func CreateBlock(block []byte, byteOnBlock int) []byte {
 		}
 	}
 	blockCorr = blockCorr[:byteOnBlock]
-	fmt.Println(blockCorr)
-	fmt.Println("-------------------")
 	return blockCorr
 }
 
