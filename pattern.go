@@ -66,8 +66,6 @@ func CreatePattern(coordinates []int, arr [][]int) {
 		{3, 2, 2, 2, 3},
 		{3, 3, 3, 3, 3}}
 
-	//fmt.Println(patternArr)
-
 	//Перебираем все координаты исключая те которые попадают на поисковые узоры
 	for _, x := range coordinates {
 		for _, y := range coordinates {
@@ -76,9 +74,6 @@ func CreatePattern(coordinates []int, arr [][]int) {
 			}
 		}
 	}
-
-	createTimingTemplate(arr)
-
 }
 
 // Создает поисковый узор в нужных координатах
@@ -97,7 +92,7 @@ func create(i, z int, arr [][]int, arr2 [][]int) {
 }
 
 // Воздание Вертикальной и горизонтальной последовательности 1 и 0
-func createTimingTemplate(arr [][]int) {
+func СreateTimingTemplate(arr [][]int) {
 	row := 6
 	color := 3
 	for i := 8; i < (len(arr))-8; i++ {
