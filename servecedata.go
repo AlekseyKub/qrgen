@@ -1,9 +1,9 @@
 // servicedata
 package qrgen
 
-// import (
-// 	"fmt"
-// )
+import (
+	"fmt"
+)
 
 // Добавление служебной информации о маске и уровне коррекции
 func CreateMaskAndCorrectionLevel(arr [][]int, ver, cor, number int) {
@@ -13,6 +13,9 @@ func CreateMaskAndCorrectionLevel(arr [][]int, ver, cor, number int) {
 	createDownLeft(arr, data)
 	createUpRight(arr, data)
 	createBlackPoin(arr)
+	if ver > 5 {
+		createCodeVersion(arr, ver)
+	}
 }
 
 // добавление маски и уровня коррекции слева сверху
@@ -77,6 +80,27 @@ func createUpRight(arr [][]int, data int) {
 func createBlackPoin(arr [][]int) {
 	arr[len(arr)-8][8] = 3
 }
+
+func createCodeVersion(arr [][]int, ver int) {
+	data := versionCodeData[ver]
+	fmt.Println(data)
+	i := 17
+	for x := len(arr) - 11; x < len(arr)-8; x++ {
+		for y := 0; y < 6; y++ {
+			if HasBit(data, i) {
+				arr[x][y] = 3
+				arr[y][x] = 3
+				i--
+			} else {
+				arr[x][y] = 2
+				arr[y][x] = 2
+				i--
+			}
+
+		}
+	}
+}
+
 func HasBit(n int, pos int) bool {
 	val := n & (1 << pos)
 	return (val > 0)
