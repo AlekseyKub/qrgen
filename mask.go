@@ -1,6 +1,10 @@
 // mask
 package qrgen
 
+import (
+	"fmt"
+)
+
 // маскирование QR кода
 func ApplyMask(arr [][]int, numMask int) {
 	if numMask == 0 {
@@ -137,4 +141,52 @@ func ApplyMask(arr [][]int, numMask int) {
 			}
 		}
 	}
+}
+
+// здесь буду перебирать все маски
+func MaskSelection(arr [][]int) {
+	fmt.Println("ghbdtn")
+	fiveAddMore(arr)
+}
+
+func fiveAddMore(arr [][]int) {
+	blaсk := 0 //счетки для белых
+	white := 0 //счетчик для черных
+	//last :=0	//цвет прошлого элимента
+	ball := 0 //количество баллов
+	fmt.Println("ghbdtn11")
+
+	for i := 0; i < (len(arr)); i++ {
+		for x := 0; x < (len(arr)); x++ {
+			if (arr[i][x] == 1) || (arr[i][x] == 3) {
+				blaсk++
+				white = 0
+			} else {
+				white++
+				blaсk = 0
+			}
+			if blaсk >= 5 {
+				if x == len(arr)-1 {
+					ball += blaсk - 2
+				} else {
+					if arr[i][x+1] == 0 {
+						ball += blaсk - 2
+					}
+				}
+			}
+
+			if white >= 5 {
+				if x == len(arr)-1 {
+					ball += white - 2
+				} else {
+					if arr[i][x+1] == 0 {
+						ball += white - 2
+					}
+				}
+			}
+			fmt.Sprintf("Количество баллов %d", ball)
+		}
+	}
+	fmt.Sprintf("Количество баллов %d", ball)
+	//return ball
 }
